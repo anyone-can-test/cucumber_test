@@ -21,8 +21,8 @@ When /^I withdraw (#{CAPTURE_CASH_AMOUNT})$/ do |amount|
     teller.withdraw_from(my_account, amount)
 end
 
-Then /^\$(\d+) should be dispensed$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^(#{CAPTURE_CASH_AMOUNT}) should be dispensed$/ do |amount|
+    cash_slot.contents.should == amount
 end
 
 
@@ -42,10 +42,20 @@ class Teller
     end
 end
 
+class CashSlot
+    def contents
+        raise("I'm empty!")
+    end
+end
+
 
 module KnowsMyAccount
     def my_account
         @my_account ||= Account.new
+    end
+
+    def cash_slot
+        @cash_slot ||= CashSlot.new
     end
 end
 
