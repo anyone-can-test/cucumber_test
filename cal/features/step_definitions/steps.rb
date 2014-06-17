@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'nice_bank')
 
 CAPTURE_A_NUMBER = Transform /^\d+$/ do |number|
 	number.to_i
@@ -24,37 +25,6 @@ Then /^(#{CAPTURE_CASH_AMOUNT}) should be dispensed$/ do |amount|
     cash_slot.contents.should == amount
 end
 
-
-class Account
-	def deposit(amount)
-		@balance = amount
-	end
-
-	def balance
-		@balance
-	end
-end
-
-
-class Teller
-	def initialize(cash_slot)
-		@cash_slot = cash_slot
-	end
-
-    def withdraw_from(account, amount)
-		@cash_slot.dispense(amount)
-    end
-end
-
-class CashSlot
-    def contents
-        @contents or raise("I'm empty!")
-    end
-
-	def dispense(amount)
-		@contents = amount
-	end
-end
 
 
 module KnowsMyAccount
