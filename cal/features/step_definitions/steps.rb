@@ -16,15 +16,4 @@ Then /^(#{CAPTURE_CASH_AMOUNT}) should be dispensed$/ do |amount|
 end
 
 
-
-module KnowsMyAccount
-    def my_account
-        @my_account ||= Account.new
-    end
-
-    def cash_slot
-        @cash_slot ||= CashSlot.new
-    end
-end
-
 World(KnowsMyAccount)
