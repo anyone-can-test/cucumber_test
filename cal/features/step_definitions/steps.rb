@@ -8,7 +8,6 @@ CAPTURE_CASH_AMOUNT = Transform /^\$(\d+)$/ do |digits|
 end
 
 Given /^I have deposited \$(#{CAPTURE_A_NUMBER}) in my account$/ do |amount|
-	my_account = Account.new
 	my_account.deposit(amount)
 
 	# RSpec assertion
@@ -17,7 +16,7 @@ Given /^I have deposited \$(#{CAPTURE_A_NUMBER}) in my account$/ do |amount|
 end
 
 When /^I withdraw (#{CAPTURE_CASH_AMOUNT})$/ do |amount|
-    teller = Teller.new
+    teller = Teller.new(cash_slot)
     teller.withdraw_from(my_account, amount)
 end
 
@@ -38,14 +37,23 @@ end
 
 
 class Teller
+	def initialize(cash_slot)
+		@cash_slot = cash_slot
+	end
+
     def withdraw_from(account, amount)
+		@cash_slot.dispense(amount)
     end
 end
 
 class CashSlot
     def contents
-        raise("I'm empty!")
+        @contents or raise("I'm empty!")
     end
+
+	def dispense(amount)
+		@contents = amount
+	end
 end
 
 
