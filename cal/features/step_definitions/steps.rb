@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'nice_bank')
 
 CAPTURE_A_NUMBER = Transform /^\d+$/ do |number|
 	number.to_i
