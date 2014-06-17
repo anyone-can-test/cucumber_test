@@ -8,3 +8,4 @@ module KnowsMyAccount
     end
 end
 
+World(KnowsMyAccount)
