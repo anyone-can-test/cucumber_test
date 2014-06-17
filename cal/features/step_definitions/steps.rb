@@ -1,12 +1,3 @@
-
-CAPTURE_A_NUMBER = Transform /^\d+$/ do |number|
-	number.to_i
-end
-
-CAPTURE_CASH_AMOUNT = Transform /^\$(\d+)$/ do |digits|
-    digits.to_i
-end
-
 Given /^I have deposited \$(#{CAPTURE_A_NUMBER}) in my account$/ do |amount|
 	my_account.deposit(amount)
 
